@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   UncontrolledCollapse,
   NavbarBrand,
@@ -12,8 +12,18 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { logoutAction } from "store/actions/AuthActions";
+
 
 const ResNavbar = () => {
+  const {role,status } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutAction(navigate))
+  }
 
   return (
     <>
@@ -49,7 +59,10 @@ const ResNavbar = () => {
               </Row>
             </div>
             <Nav className="ml-auto mx-5" navbar>
-              <NavItem>
+              {
+                status && (
+                  <>
+                  <NavItem>
                 <NavLink className="nav-link-icon" to="/home" tag={Link}>
                 <i class="fa-solid fa-crow"></i>
                   <span className="nav-link-inner--text">Randevu Al</span>
@@ -60,16 +73,23 @@ const ResNavbar = () => {
                 <i class="fa-solid fa-calendar-days"></i>
                   <span className="nav-link-inner--text">Randevularım</span>
                 </NavLink>
-              </NavItem>
+              </NavItem></>
+                )
+              }
               
                 <NavItem>
-                <NavLink className="nav-link-icon" to="/admin/dashboard" tag={Link}>
-                <i class="fa-solid fa-layer-group"></i>
-                  <span className="nav-link-inner--text">Yönetim Paneli</span>
-                </NavLink>
+                {role === "ADMIN" && ( 
+                  <NavLink className="nav-link-icon" to="/admin/dashboard" tag={Link}>
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span className="nav-link-inner--text">Yönetim Paneli</span>
+                  </NavLink>
+                  )}
               </NavItem>
                
-              <NavItem>
+              {
+                !status ===true ? (
+                  <>
+                  <NavItem>
                 <NavLink className="nav-link-icon" to="/login" tag={Link}>
                   <i className="ni ni-key-25" />
                   <span className="nav-link-inner--text">Login</span>
@@ -84,7 +104,25 @@ const ResNavbar = () => {
                   <i className="ni ni-circle-08" />
                   <span className="nav-link-inner--text">Register</span>
                 </NavLink>
+              </NavItem></>
+                  
+                ): (
+                  <>
+                   <NavItem>
+                <NavLink
+                  className="nav-link-icon"
+                  to="/login"
+                  tag={Link}
+                  onClick={handleLogout}
+                >
+                  <i class="fa-solid fa-rotate-right"></i>
+                  <span className="nav-link-inner--text">Logout</span>
+                </NavLink>
               </NavItem>
+                  </>
+                )
+              }
+
               {/* <NavItem>
                   <UncontrolledDropdown className="nav-link-icon mt-2">
                             <DropdownToggle id='current' color='white'>
@@ -103,9 +141,10 @@ const ResNavbar = () => {
     </>
   );
 };
-// const mapStateToProps = (state) => {
-//   return {
-//      role: state.role,
-//   };
-// };
-export default (ResNavbar);
+const mapStateToProps = (state) => {
+  return {
+     role: state.role,
+     status:state.status
+  };
+};
+export default connect(mapStateToProps)(ResNavbar);

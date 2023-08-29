@@ -9,6 +9,7 @@ import {Provider} from 'react-redux';
 import {store} from './store/store';
 import HomeLayout from "./pages/layout/HomeLayout.jsx";
 import Admin from "pages/layout/AdminLayout";
+import AuthLayout from "pages/layout/AuthLayout";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store = {store}>
@@ -16,8 +17,8 @@ root.render(
     <Routes>
       <Route path="/*" element={<HomeLayout />} />
       <Route path="/admin/*" element={<Admin />} />
-
-      <Route path="*" element={<Navigate to="/home" replace />} />
+      <Route path="/auth/*" element={<AuthLayout />} />
+      <Route path="*" element={<Navigate to="/auth/login" replace />} />
     </Routes>
   </BrowserRouter>
   </Provider>

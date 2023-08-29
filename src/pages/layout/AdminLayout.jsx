@@ -1,5 +1,5 @@
 import Sidebar from "pages/dashboard/Sidebar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 import { Container } from "reactstrap";
 
@@ -10,6 +10,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import PrivateComponent from "../../components/PrivateComponent";
 
 const Admin = (props) => {
+
   const mainContent = React.useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -37,9 +38,8 @@ const Admin = (props) => {
     return routes.filter((prop) => prop.layout === "/admin");
   };
 
-  const { successMessage, showLoading, errorMessage } = useSelector(
-    (state) => state.auth
-  );
+  
+
 
   return (
     <>
@@ -59,7 +59,7 @@ const Admin = (props) => {
           }}
         />
         <div className="main-content" ref={mainContent}>
-          <ResNavbar />
+          <ResNavbar  />
           <Routes>
             {getRoutes(routes)}
             <Route

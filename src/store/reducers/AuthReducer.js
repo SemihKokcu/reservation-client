@@ -29,13 +29,15 @@ export function AuthReducer(state = initialState, action) {
         };
     }
     if (action.type === LOGIN_CONFIRMED_ACTION) {
+        console.log(action.payload.role);
         return {
             ...state,
             token: action.payload.access_token,
             errorMessage: '',
             successMessage: 'Login Successfully Completed',
             showLoading: false,
-            role:action.payload.role
+            role:action.payload.role,
+            status:true,
         };
     }
 
@@ -44,7 +46,8 @@ export function AuthReducer(state = initialState, action) {
             ...state,
             errorMessage: '',
             successMessage: '',
-            token:''
+            token:'',
+            status:action.payload,
         };
     }
 

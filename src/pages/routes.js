@@ -39,7 +39,7 @@ import Dashboard from "./dashboard/Dashboard";
             path:"/login",
             component:<Login/>,
             private:false,
-            layout:"/",
+            layout:"/auth",
             name:"dashboard",
             icon: "ni ni-tv-2 text-primary",
 
@@ -48,7 +48,7 @@ import Dashboard from "./dashboard/Dashboard";
             path:"/register",
             component:<Register/>,
             private:false,
-            layout:"/",
+            layout:"/auth",
             name:"dashboard",
             icon: "ni ni-tv-2 text-primary",
 

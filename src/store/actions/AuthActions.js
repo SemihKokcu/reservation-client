@@ -16,7 +16,7 @@ export function registerAction(name,email, password,navigate){
     return (dispatch)=>{
         register(name,email, password).then((response)=>{
             dispatch(confirmedRegisterAction)
-            navigate("/login")
+            navigate("/auth/login")
         })
         .catch((error)=>{
             dispatch(signupFailedAction(error));
@@ -29,7 +29,7 @@ export function loginAction(email, password,navigate){
             login(email, password).then((response) => {
                 saveTokenInLocalStorage(response.data);
                 dispatch(loginConfirmedAction(response.data));              
-                navigate('/admin/dashboard');
+                navigate('/home');
             })
             .catch((error) => {
                 console.log(error);
@@ -51,10 +51,11 @@ export function checkAuthAction(){
 
 export function logoutAction(navigate){
     logOut();
-    navigate("/login");
+    navigate("/auth/login");
 
     return {
-        type: LOGOUT_ACTION
+        type: LOGOUT_ACTION,
+        payload:false
     }
 }
 

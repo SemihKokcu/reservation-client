@@ -4,9 +4,8 @@ import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 import routes from "../routes";
 import ResNavbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
-import PrivateComponent from "components/PrivateComponent";
 
-const HomeLayout = (props) => {
+const AuthLayout = (props) => {
 
   const mainContent = React.useRef(null);
   const location = useLocation();
@@ -27,7 +26,7 @@ const HomeLayout = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/") {
+      if (prop.layout === "/auth") {
         return (
           <Route path={prop.path} element={prop.component} key={key} exact />
         );
@@ -39,16 +38,14 @@ const HomeLayout = (props) => {
 
   return (
     <>
-     <PrivateComponent>
       <ResNavbar  />
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <Footer />
-     </PrivateComponent>
     </>
   );
 };
 
-export default HomeLayout;
+export default AuthLayout;
