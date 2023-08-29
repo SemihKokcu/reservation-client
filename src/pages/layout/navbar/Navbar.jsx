@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   UncontrolledCollapse,
@@ -9,10 +11,10 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem 
 } from "reactstrap";
 
 const ResNavbar = () => {
+
   return (
     <>
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
@@ -50,21 +52,23 @@ const ResNavbar = () => {
               <NavItem>
                 <NavLink className="nav-link-icon" to="/home" tag={Link}>
                 <i class="fa-solid fa-crow"></i>
-                  <span className="nav-link-inner--text">Home</span>
+                  <span className="nav-link-inner--text">Randevu Al</span>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link-icon" to="/profile" tag={Link}>
                 <i class="fa-solid fa-calendar-days"></i>
-                  <span className="nav-link-inner--text">My Appointments</span>
+                  <span className="nav-link-inner--text">Randevularım</span>
                 </NavLink>
               </NavItem>
-              <NavItem>
+              
+                <NavItem>
                 <NavLink className="nav-link-icon" to="/admin/dashboard" tag={Link}>
                 <i class="fa-solid fa-layer-group"></i>
                   <span className="nav-link-inner--text">Yönetim Paneli</span>
                 </NavLink>
               </NavItem>
+               
               <NavItem>
                 <NavLink className="nav-link-icon" to="/login" tag={Link}>
                   <i className="ni ni-key-25" />
@@ -99,5 +103,9 @@ const ResNavbar = () => {
     </>
   );
 };
-
-export default ResNavbar;
+// const mapStateToProps = (state) => {
+//   return {
+//      role: state.role,
+//   };
+// };
+export default (ResNavbar);

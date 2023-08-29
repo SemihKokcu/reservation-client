@@ -13,13 +13,10 @@ import {
 } from "reactstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch,useSelector } from 'react-redux';
 import {  useNavigate } from 'react-router-dom'
 import { loginAction } from "store/actions/AuthActions";
-import Alertify from "../../../components/Alerts/Alertify";
-
 const Login = () => {
-
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -39,9 +36,13 @@ const Login = () => {
       password: values.password
     }
     dispatch(loginAction(data.email,data.password,navigate));
+  
   };
+  const { successMessage, showLoading, errorMessage } = useSelector((state) => state.auth);
+  
   return (
     <>
+   
       <Row>
         <Col md="4"></Col>
         <Col md="8">
@@ -180,4 +181,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+
+export default (Login);

@@ -1,4 +1,4 @@
-import { login,logOut,saveTokenInLocalStorage,register} from "../..//services/AuthService";
+import { login,logOut,saveTokenInLocalStorage,register, checkAuth} from "../..//services/AuthService";
 
 
 export const SIGNUP_CONFIRMED_ACTION = '[signup action] confirmed signup';
@@ -7,11 +7,14 @@ export const LOGIN_CONFIRMED_ACTION = '[login action] confirmed login';
 export const LOGIN_FAILED_ACTION = '[login action] failed login';
 export const LOADING_TOGGLE_ACTION = '[Loading action] toggle loading';
 export const LOGOUT_ACTION = '[Logout action] logout action';
+export const RESET_SUCCESS_MESSAGE = "RESET_SUCCESS_MESSAGE";
+export const CHECK_AUTH_SUCCESS = "CHECK_AUTH_SUCCESS";
+export const CHECK_AUTH_ERROR = "CHECK_AUTH_SUCCESS";
 
 
-export function registerAction(email, password,navigate){
+export function registerAction(name,email, password,navigate){
     return (dispatch)=>{
-        register(email, password).then((response)=>{
+        register(name,email, password).then((response)=>{
             dispatch(confirmedRegisterAction)
             navigate("/login")
         })
@@ -24,7 +27,7 @@ export function registerAction(email, password,navigate){
 export function loginAction(email, password,navigate){
         return (dispatch) => {
             login(email, password).then((response) => {
-                saveTokenInLocalStorage(response.data.access_token);
+                saveTokenInLocalStorage(response.data);
                 dispatch(loginConfirmedAction(response.data));              
                 navigate('/admin/dashboard');
             })
@@ -33,6 +36,17 @@ export function loginAction(email, password,navigate){
                 dispatch(loginFailedAction(error));
             })
         }
+}
+
+export function checkAuthAction(){
+    return (dispatch) => {
+        checkAuth().then((response) => {
+            dispatch(checkAutSuccess(response.data));
+        })
+        .catch((error) => {
+            dispatch(checkAutFailed());
+        })
+    }
 }
 
 export function logoutAction(navigate){
@@ -69,4 +83,23 @@ export function loginConfirmedAction(data) {
         type: LOGIN_CONFIRMED_ACTION,
         payload: data,
     };
+}
+export const resetSuccessMessage = () => {
+    return {
+      type: RESET_SUCCESS_MESSAGE,
+    };
+  };
+
+export const checkAutSuccess = (data)=>{
+    return {
+        type : CHECK_AUTH_SUCCESS,
+        payload: data
+    }
+}
+
+export const checkAutFailed = (data)=>{
+    return {
+        type : CHECK_AUTH_ERROR,
+        payload: data
+    }
 }

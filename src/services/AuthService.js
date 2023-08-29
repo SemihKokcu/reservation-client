@@ -1,10 +1,9 @@
 import axiosInstance  from './AxiosInstance';
 import APIConfig from '../config/api.config';
 
-export function register(firstname,lastname,email,password){
+export function register(name,email,password){
     const postData = {
-        firstname: firstname,
-        lastname: lastname,
+        name: name,
         email: email,
         password: password
     }
@@ -23,8 +22,14 @@ export function login(email, password){
     return resp;
 }
 
+export function checkAuth(){
+
+    return axiosInstance.post(APIConfig.CHECK_AUTH_SVC,localStorage.getItem('token'));
+}
+
 export function saveTokenInLocalStorage(tokenDetails) {
-    localStorage.setItem('token', JSON.stringify(tokenDetails));
+    localStorage.setItem('token', JSON.stringify(tokenDetails.access_token));
+    localStorage.setItem('role', JSON.stringify(tokenDetails.role));
 }
 
 export function logOut(){

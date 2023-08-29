@@ -1,8 +1,10 @@
 import {
+    CHECK_AUTH_SUCCESS,
     LOADING_TOGGLE_ACTION,
     LOGIN_CONFIRMED_ACTION,
     LOGIN_FAILED_ACTION,
     LOGOUT_ACTION,
+    RESET_SUCCESS_MESSAGE,
     SIGNUP_CONFIRMED_ACTION,
     SIGNUP_FAILED_ACTION,
 } from '../actions/AuthActions';
@@ -12,6 +14,8 @@ const initialState = {
     errorMessage: '',
     successMessage: '',
     showLoading: false,
+    status: false,
+    role:""
 };
 
 export function AuthReducer(state = initialState, action) {
@@ -20,17 +24,18 @@ export function AuthReducer(state = initialState, action) {
             ...state,
             token: action.payload,
             errorMessage: '',
-            successMessage: 'Signup Successfully Completed',
+            successMessage: 'Signup Successfully Please Login',
             showLoading: false,
         };
     }
     if (action.type === LOGIN_CONFIRMED_ACTION) {
         return {
             ...state,
-            token: action.payload,
+            token: action.payload.access_token,
             errorMessage: '',
             successMessage: 'Login Successfully Completed',
             showLoading: false,
+            role:action.payload.role
         };
     }
 
@@ -61,6 +66,17 @@ export function AuthReducer(state = initialState, action) {
             showLoading: action.payload,
         };
     }
+    if(action.type === RESET_SUCCESS_MESSAGE){
+        return {
+            ...state,
+            successMessage: null }
+    }
+    if(action.type===CHECK_AUTH_SUCCESS){
+        return{
+            status:true,
+        }
+    }
+
     return state;
 }
 

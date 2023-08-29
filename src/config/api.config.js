@@ -7,7 +7,8 @@ class APIConfig {
     static SELECTED_ENVIRONMENT = this.ENVIRONMENT.ADMINPROD
   
     static LOGIN_SVC = '/auth/authenticate'
-    static REGİSTER_SVC = '/register'
+    static REGİSTER_SVC = '/auth/register'
+    static CHECK_AUTH_SVC = '/auth/check-auth';
   }
   
   export default APIConfig

@@ -1,11 +1,10 @@
-
 import React from "react";
 import { useLocation, Route, Routes, Navigate } from "react-router-dom";
 
 import routes from "../routes";
 import ResNavbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
-import Alertify from "components/Alerts/Alertify";
+import PrivateComponent from "components/PrivateComponent";
 
 const HomeLayout = (props) => {
   const mainContent = React.useRef(null);
@@ -40,13 +39,14 @@ const HomeLayout = (props) => {
 
   return (
     <>
-     
-     <ResNavbar/>
-        <Routes>
-              {getRoutes(routes)}
-              <Route path="*" element={<Navigate to="/home" replace />} />
-        </Routes>
+     <PrivateComponent>
+      <ResNavbar />
+      <Routes>
+        {getRoutes(routes)}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
       <Footer />
+     </PrivateComponent>
     </>
   );
 };

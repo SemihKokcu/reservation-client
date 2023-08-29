@@ -18,15 +18,6 @@ import Dashboard from "./dashboard/Dashboard";
 
         },
         {
-            path:"/reservation",
-            component:<Reservation/>,
-            private:true,
-            layout:"/",
-            name:"dashboard",
-            icon: "ni ni-tv-2 text-primary",
-
-        },
-        {
             path:"/home",
             component:<Home/>,
             private:true,
