@@ -1,4 +1,4 @@
-import { login,logOut,saveTokenInLocalStorage,register, checkAuth} from "../..//services/AuthService";
+import { login,logOut,saveTokenInLocalStorage,register, checkAuth} from "../../services/AuthService";
 
 
 export const SIGNUP_CONFIRMED_ACTION = '[signup action] confirmed signup';
@@ -15,7 +15,7 @@ export const CHECK_AUTH_ERROR = "CHECK_AUTH_SUCCESS";
 export function registerAction(name,email, password,navigate){
     return (dispatch)=>{
         register(name,email, password).then((response)=>{
-            dispatch(confirmedRegisterAction)
+            dispatch(confirmedRegisterAction(response.data))
             navigate("/auth/login")
         })
         .catch((error)=>{

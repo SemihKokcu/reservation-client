@@ -14,7 +14,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import { connect, useDispatch,useSelector } from 'react-redux';
+import {  useNavigate } from 'react-router-dom'
+import {  addReservationAction } from "../../store/actions/ReservationActions";
+
 const Home = () => {
+
+  const dispatch = useDispatch()
+  
   const doctors = [
     {
       value: "1",
@@ -68,27 +75,26 @@ const Home = () => {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    
 
   };
 
+  
   const handleSubmit = () => {
-
-    const year = selectedDate.year();
-    const month = selectedDate.month();
-    const day = selectedDate.date();
-
-  const formattedDate = `${year}-${month + 1}-${day}`;
-
-  const appointmentData = {
-    doctor: selectedDoctor,
-    date: formattedDate,
-    time: selectedTime,
+    
+    const formattedDate = selectedDate.format("YYYY-MM-DD");
+    const formattedTime = dayjs(selectedTime, "HH:mm").format("HH:mm:ss");
+    const combinedDateTime = `${formattedDate}T${formattedTime}`;
+  
+    const appointmentData = {
+      doctor: {id:selectedDoctor},
+      startTime: combinedDateTime,
+      confirmed:true,
+    };
+  
+    dispatch(addReservationAction(appointmentData.doctor.id,appointmentData.startTime,appointmentData.confirmed));
+    console.log("Randevu Bilgileri:", appointmentData);
   };
-
-  console.log("Randevu Bilgileri:", appointmentData);
-  };
-
+  
   return (
     <div className="header bg-gradient-info pb-8 pt-5 pt-md-4">
       <Container fluid>
