@@ -18,6 +18,7 @@ class APIConfig {
     static GET_BY_ID_RESERVATİON = '/reservation/get/';
     static DELETE_RESERVATİON = '/reservation/delete/';
     static UPDATE_RESERVATİON = '/reservation/update';
+    static GET_ALL_RESERVATİON_BY_USER = '/reservation/getAll/byUser';
   }
   
   export default APIConfig

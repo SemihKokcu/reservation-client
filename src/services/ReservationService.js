@@ -10,4 +10,10 @@ export function addReservation(doctorId,startTime,confirmed){
     return axiosInstance.post(APIConfig.ADD_RESERVATİON,postData);
 }
 
+export function getallReservationsByUser(){
+
+    return axiosInstance.get(APIConfig.GET_ALL_RESERVATİON_BY_USER);    
+
+}
+
 
