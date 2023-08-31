@@ -87,7 +87,7 @@ const ResNavbar = () => {
               </NavItem>
                
               {
-                !status ===true ? (
+                status !=true ? (
                   <>
                   <NavItem>
                 <NavLink className="nav-link-icon" to="/login" tag={Link}>

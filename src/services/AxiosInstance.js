@@ -11,9 +11,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
-    const fixedToken = token.replace(/"/g, '');
-    console.log(token);
     if (token) {
+    console.log(token);
+      const fixedToken = token.replace(/"/g, '');
       config.headers['Authorization'] = `Bearer ${fixedToken}`;
     }
     console.log(config.headers);

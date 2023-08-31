@@ -24,6 +24,17 @@ export function ReservationReducer(state = initialState, action) {
             ...state,
             errorMessage:action.payload.message,
         }
+    case RESERVATION_GET_ALL_BY_USER_CONFIRMED_ACTION:
+        return {
+          ...state,
+          successMessage:action.payload.message,
+          reservations:action.payload.data
+        }
+    case RESERVATION_GET_ALL_BY_USER_FAILED_ACTION:
+      return {
+        ...state,
+        errorMessage:action.payload.message,
+      }
     
         default:
             return {
